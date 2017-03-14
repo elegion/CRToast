@@ -306,7 +306,12 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
         kCRSubtitleFontDefault = [UIFont systemFontOfSize:12];
         kCRSubtitleTextColorDefault = [UIColor whiteColor];
         kCRSubtitleTextShadowOffsetDefault = CGSizeZero;
-        kCRBackgroundColorDefault = [[UIApplication sharedApplication] delegate].window.tintColor ?: [UIColor redColor];
+        if ([[[UIApplication sharedApplication] delegate] respondsToSelector:@selector(window)]) {
+            kCRBackgroundColorDefault = [[UIApplication sharedApplication] delegate].window.tintColor;
+        } else {
+            kCRBackgroundColorDefault = [UIColor redColor];
+        }
+
         kCRInteractionResponders = @[];
         
         kCRToastKeyClassMap = @{kCRToastNotificationTypeKey                 : NSStringFromClass([@(kCRNotificationTypeDefault) class]),
