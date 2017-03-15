@@ -94,7 +94,6 @@ typedef void (^CRToastAnimationStepBlock)(void);
         notificationWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         notificationWindow.windowLevel = UIWindowLevelStatusBar;
         notificationWindow.rootViewController = [CRToastViewController new];
-        notificationWindow.rootViewController.view.clipsToBounds = YES;
         self.notificationWindow = notificationWindow;
         
         self.notifications = [@[] mutableCopy];
