@@ -37,10 +37,6 @@
     return _autorotate;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return [UIApplication sharedApplication].statusBarHidden;
-}
-
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return self.statusBarStyle;
 }
