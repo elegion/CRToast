@@ -141,7 +141,7 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
                                       statusBarYOffset,
                                       imageSize.width == 0 ?
                                       0 :
-                                      CGRectGetHeight(contentFrame),
+                                      MIN(CGRectGetHeight(contentFrame), self.toast.minimumHeight),
                                       imageSize.height == 0 ?
                                       0 :
                                       CGRectGetHeight(contentFrame));
@@ -184,10 +184,27 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
         CGFloat subtitleHeight = [self.toast.subtitleText boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
                                                                        options:NSStringDrawingUsesLineFragmentOrigin
                                                                     attributes:@{NSFontAttributeName : self.toast.subtitleFont }
-                                                                       context:nil].size.height;
-        if ((CGRectGetHeight(contentFrame) - (height + subtitleHeight)) < 5) {
-            subtitleHeight = (CGRectGetHeight(contentFrame) - (height))-10;
+                                                                    context:nil].size.height;
+        
+        if ((height + subtitleHeight + 10) > self.toast.maximumHeight ) {
+            subtitleHeight = (self.toast.maximumHeight - (height)) - 10;
         }
+                                  
+        if (((CGRectGetHeight(contentFrame) - (height + subtitleHeight)) < 10)) {
+       
+            CGFloat newHeight = MIN((height + subtitleHeight + 10), self.toast.maximumHeight);
+            CGRect newFrame = CGRectMake(self.frame.origin.x,
+                                     self.frame.origin.y,
+                                     CGRectGetWidth(self.frame),
+                                     newHeight) ;
+            self.frame = CGRectIntegral(newFrame);
+            NSMutableDictionary *newOption = [self.toast.options mutableCopy];
+            newOption[kCRToastNotificationPreferredHeightKey] = [[NSNumber alloc] initWithFloat: newHeight];
+            self.toast.options = newOption;
+            [self setNeedsLayout];
+            return;
+        }
+        
         CGFloat offset = (CGRectGetHeight(contentFrame) - (height + subtitleHeight))/2;
         
         self.label.frame = CGRectMake(x,

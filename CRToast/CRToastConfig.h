@@ -136,9 +136,19 @@ typedef NS_ENUM(NSInteger, CRToastAccessoryViewAlignment){
 extern NSString *const kCRToastNotificationTypeKey;
 
 /**
- The preferred height for the notificaiton, this will only be used for notifications with CRToastTypeCustom set for kCRToastNotificationTypeKey
+ The minimum height for the notificaiton, this will only be used for notifications with CRToastTypeCustom set for kCRToastNotificationTypeKey
+ */
+extern NSString *const kCRToastNotificationMinimumHeightKey;
+
+/**
+ The preferred height for the notificaiton, this will only be used for notifications with CRToastTypeCustom set for kCRToastNotificationTypeKey. 
  */
 extern NSString *const kCRToastNotificationPreferredHeightKey;
+
+/**
+ The maximum height for the notificaiton, this will only be used for notifications with CRToastTypeCustom set for kCRToastNotificationTypeKey
+ */
+extern NSString *const kCRToastNotificationMaximumHeightKey;
 
 /**
  The general preferred padding for the notification.
@@ -398,7 +408,9 @@ extern NSString *const kCRToastCaptureDefaultWindowKey;
 //Read Only Convinence Properties Providing Default Values or Values from Options
 
 @property (nonatomic, readonly) CRToastType notificationType;
+@property (nonatomic, assign) CGFloat minimumHeight;
 @property (nonatomic, assign) CGFloat preferredHeight;
+@property (nonatomic, assign) CGFloat maximumHeight;
 @property (nonatomic, assign) CGFloat preferredPadding;
 @property (nonatomic, readonly) CRToastPresentationType presentationType;
 @property (nonatomic, readonly) BOOL displayUnderStatusBar;

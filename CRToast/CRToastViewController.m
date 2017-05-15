@@ -49,7 +49,7 @@
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
     if (self.toastView) {
-        CGSize notificationSize = CRNotificationViewSizeForOrientation(self.notification.notificationType, self.notification.preferredHeight, toInterfaceOrientation);
+        CGSize notificationSize = CRNotificationViewSizeForOrientation(self.notification.notificationType, self.notification.minimumHeight, toInterfaceOrientation);
         self.toastView.frame = CGRectMake(0, 0, notificationSize.width, notificationSize.height);
     }
 }
