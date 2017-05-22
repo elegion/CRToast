@@ -69,6 +69,8 @@ CGFloat CRContentWidthForAccessoryViewsWithAlignments(CGFloat fullContentWidth,
     if (!showingImage && !showingActivityIndicator) {
         width -= (kCRStatusBarViewNoImageLeftContentInset + kCRStatusBarViewNoImageRightContentInset);
         width -= (preferredPadding + preferredPadding);
+    } else {
+        width -= kCRStatusBarViewNoImageRightContentInset;
     }
     
     return width;
