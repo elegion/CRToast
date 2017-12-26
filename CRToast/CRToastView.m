@@ -8,6 +8,7 @@
 #import "CRToastLayoutHelpers.h"
 
 @interface CRToastView ()
+    @property (nonatomic, assign) CGFloat lastLayoutOffset;
 @end
 
 static CGFloat const kCRStatusBarViewNoImageLeftContentInset = 10;
@@ -97,6 +98,7 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.lastLayoutOffset = 0;
         self.userInteractionEnabled = YES;
         self.accessibilityLabel = NSStringFromClass([self class]);
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -129,11 +131,35 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    if (@available(iOS 11, *)) {
+        CGFloat currentLayoutFrameOffset = MAX(0, CGRectGetMinY(self.safeAreaLayoutGuide.layoutFrame) - 15);
+        CGFloat offset = currentLayoutFrameOffset - self.lastLayoutOffset;
+        
+        if (offset != 0) {
+            self.lastLayoutOffset = offset;
+            CGFloat newHeight = self.toast.preferredHeight + offset;
+            
+            CGRect newFrame = CGRectMake(self.frame.origin.x,
+                                         self.frame.origin.y,
+                                         CGRectGetWidth(self.frame),
+                                         newHeight) ;
+            self.frame = CGRectIntegral(newFrame);
+            NSMutableDictionary *newOption = [self.toast.options mutableCopy];
+            newOption[kCRToastNotificationPreferredHeightKey] = [[NSNumber alloc] initWithFloat: newHeight];
+            newOption[kCRToastNotificationMinimumHeightKey] = [[NSNumber alloc] initWithFloat: self.toast.minimumHeight + offset];
+            newOption[kCRToastNotificationMaximumHeightKey] = [[NSNumber alloc] initWithFloat: self.toast.maximumHeight + offset];
+            self.toast.options = newOption;
+            [self setNeedsLayout];
+            return;
+        }
+    }
+    
     CGRect contentFrame = self.bounds;
     CGSize imageSize = self.imageView.image.size;
     CGFloat preferredPadding = self.toast.preferredPadding;
     
-    CGFloat statusBarYOffset = self.toast.displayUnderStatusBar ? (CRGetStatusBarHeight()+CRStatusBarViewUnderStatusBarYOffsetAdjustment) : 0;
+    CGFloat statusBarYOffset = self.toast.displayUnderStatusBar ? (CRGetStatusBarHeight()+CRStatusBarViewUnderStatusBarYOffsetAdjustment) : self.lastLayoutOffset;
     contentFrame.size.height = CGRectGetHeight(contentFrame) - statusBarYOffset;
     
     self.backgroundView.frame = self.bounds;
