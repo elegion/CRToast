@@ -137,7 +137,6 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
         CGFloat offset = currentLayoutFrameOffset - self.lastLayoutOffset;
         
         if (offset != 0) {
-            self.lastLayoutOffset = offset;
             CGFloat newHeight = self.toast.preferredHeight + offset;
             
             CGRect newFrame = CGRectMake(self.frame.origin.x,
@@ -150,6 +149,11 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
             newOption[kCRToastNotificationMinimumHeightKey] = [[NSNumber alloc] initWithFloat: self.toast.minimumHeight + offset];
             newOption[kCRToastNotificationMaximumHeightKey] = [[NSNumber alloc] initWithFloat: self.toast.maximumHeight + offset];
             self.toast.options = newOption;
+            if (offset < 0) {
+                self.lastLayoutOffset = 0;
+            } else {
+                self.lastLayoutOffset = offset;
+            }
             [self setNeedsLayout];
             return;
         }
