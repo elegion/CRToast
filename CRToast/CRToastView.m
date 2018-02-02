@@ -136,7 +136,7 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
         CGFloat currentLayoutFrameOffset = MAX(0, CGRectGetMinY(self.safeAreaLayoutGuide.layoutFrame) - 15);
         CGFloat offset = currentLayoutFrameOffset - self.lastLayoutOffset;
         
-        if (offset != 0) {
+        if (abs(offset) > 0.01) {
             CGFloat newHeight = self.toast.preferredHeight + offset;
             
             CGRect newFrame = CGRectMake(self.frame.origin.x,
@@ -218,13 +218,13 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
                                                                     attributes:@{NSFontAttributeName : self.toast.subtitleFont }
                                                                     context:nil].size.height;
         
-        if ((height + subtitleHeight + 10) > self.toast.maximumHeight ) {
-            subtitleHeight = (self.toast.maximumHeight - (height)) - 10;
+        if ((height + subtitleHeight + 10 + statusBarYOffset) > self.toast.maximumHeight ) {
+            subtitleHeight = self.toast.maximumHeight - height - statusBarYOffset - 10;
         }
                                   
         if (((CGRectGetHeight(contentFrame) - (height + subtitleHeight)) < 10)) {
        
-            CGFloat newHeight = MIN((height + subtitleHeight + 10), self.toast.maximumHeight);
+            CGFloat newHeight = MIN((height + subtitleHeight + 10 + statusBarYOffset), self.toast.maximumHeight);
             CGRect newFrame = CGRectMake(self.frame.origin.x,
                                      self.frame.origin.y,
                                      CGRectGetWidth(self.frame),
