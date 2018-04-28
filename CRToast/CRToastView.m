@@ -124,7 +124,9 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
         [self addSubview:subtitleLabel];
         self.subtitleLabel = subtitleLabel;
         
-        self.isAccessibilityElement = YES;
+        self.isAccessibilityElement = NO;
+        label.isAccessibilityElement = YES;
+        subtitleLabel.isAccessibilityElement = YES;
     }
     return self;
 }
