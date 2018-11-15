@@ -47,10 +47,16 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
+
     if (self.toastView) {
         CGSize notificationSize = CRNotificationViewSizeForOrientation(self.notification.notificationType, self.notification.minimumHeight, toInterfaceOrientation);
-        self.toastView.frame = CGRectMake(0, 0, notificationSize.width, notificationSize.height);
+        CGRect containerFrame = CGRectMake(0, 0, notificationSize.width, notificationSize.height);
+        CGFloat topOffset = MAX(self.notification.containerTopOffset, CGRectGetMinY(self.view.superview.safeAreaLayoutGuide.layoutFrame) - 15 + self.notification.containerTopOffset);
+        
+        containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, self.notification.maximumWidth, topOffset, self.notification.containerVerticalOffset);
+
+        self.view.frame = containerFrame;
+        self.toastView.frame = self.view.bounds;
     }
 }
 

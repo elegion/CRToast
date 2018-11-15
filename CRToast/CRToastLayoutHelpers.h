@@ -203,6 +203,20 @@ static CGRect CRGetNotificationContainerFrame(UIInterfaceOrientation statusBarOr
     return containerFrame;
 }
 
+/// Get the adjusted frame for the notification container based on options.
+static CGRect CRNotificationContainerAdjustedFrame(CGRect initialFrame, CGFloat maximumWidth, CGFloat topOffset, CGFloat containerVerticalOffset) {
+    CGRect areaOne, areaTwo;
+    if (initialFrame.size.width > maximumWidth) {
+        CGRectDivide(initialFrame, &areaTwo, &areaOne, maximumWidth, CGRectMinXEdge);
+        areaTwo = CGRectOffset(areaTwo, areaOne.size.width / 2, topOffset);
+    } else {
+        CGRect frame = CGRectOffset(initialFrame, containerVerticalOffset, topOffset);
+        CGRectDivide(frame, &areaOne, &areaTwo, containerVerticalOffset * 2, CGRectMaxXEdge);
+    }
+    
+    return CGRectIntegral(areaTwo);
+}
+
 /// Get view snapshot. If `underStatusBar` it will get key windows root view controller. Otherwise it'll get the mainscreens snapshot
 static UIView *CRStatusBarSnapShotView(BOOL underStatusBar) {
 	if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {

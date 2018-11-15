@@ -273,6 +273,9 @@ CRToastAnimationStepBlock CRToastOutwardAnimationsSetupBlock(CRToastManager *wea
     }
     
     CGRect containerFrame = CRGetNotificationContainerFrame(CRGetDeviceOrientation(), notificationSize);
+    CGFloat topOffset = MAX(notification.containerTopOffset, CGRectGetMinY(_notificationWindow.safeAreaLayoutGuide.layoutFrame) - 15 + notification.containerTopOffset);
+    
+    containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, notification.maximumWidth, topOffset, notification.containerVerticalOffset);
     
     CRToastViewController *rootViewController = (CRToastViewController*)_notificationWindow.rootViewController;
     rootViewController.statusBarStyle = notification.statusBarStyle;
@@ -289,10 +292,11 @@ CRToastAnimationStepBlock CRToastOutwardAnimationsSetupBlock(CRToastManager *wea
     statusBarView.hidden = notification.presentationType == CRToastPresentationTypeCover;
     
     UIView *notificationView = notification.notificationView;
-    notificationView.frame = notification.notificationViewAnimationFrame1;
+    notificationView.frame = _notificationWindow.rootViewController.view.bounds;
     [_notificationWindow.rootViewController.view addSubview:notificationView];
     self.notificationView = notificationView;
     rootViewController.toastView = notificationView;
+    self.notificationView.frame = notification.notificationViewAnimationFrame1;
     self.statusBarView = statusBarView;
     
     for (UIView *subview in _notificationWindow.rootViewController.view.subviews) {

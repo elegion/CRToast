@@ -101,7 +101,7 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
         self.lastLayoutOffset = 0;
         self.userInteractionEnabled = YES;
         self.accessibilityLabel = NSStringFromClass([self class]);
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.autoresizingMask = UIViewAutoresizingNone;
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         imageView.userInteractionEnabled = NO;
@@ -134,6 +134,8 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    self.layer.cornerRadius = self.toast.cornerRadius;
+    
     if (@available(iOS 11, *)) {
         CGFloat currentLayoutFrameOffset = MAX(0, CGRectGetMinY(self.safeAreaLayoutGuide.layoutFrame) - 15);
         CGFloat offset = currentLayoutFrameOffset - self.lastLayoutOffset;
@@ -165,7 +167,7 @@ static CGFloat CRCenterXForActivityIndicatorWithAlignment(CRToastAccessoryViewAl
     CGSize imageSize = self.imageView.image.size;
     CGFloat preferredPadding = self.toast.preferredPadding;
     
-    CGFloat statusBarYOffset = self.toast.displayUnderStatusBar ? (CRGetStatusBarHeight()+CRStatusBarViewUnderStatusBarYOffsetAdjustment) : self.lastLayoutOffset;
+    CGFloat statusBarYOffset = self.toast.displayUnderStatusBar ? (CRGetStatusBarHeight() + CRStatusBarViewUnderStatusBarYOffsetAdjustment) : self.lastLayoutOffset;
     contentFrame.size.height = CGRectGetHeight(contentFrame) - statusBarYOffset;
     
     self.backgroundView.frame = self.bounds;

@@ -136,6 +136,16 @@ typedef NS_ENUM(NSInteger, CRToastAccessoryViewAlignment){
 extern NSString *const kCRToastNotificationTypeKey;
 
 /**
+ The notification's corner radius.
+ */
+extern NSString *const kCRToastNotificationCornerRadiusKey;
+
+/**
+ The maximum width for the notificaiton
+ */
+extern NSString *const kCRToastNotificationMaximumWidthKey;
+
+/**
  The minimum height for the notificaiton, this will only be used for notifications with CRToastTypeCustom set for kCRToastNotificationTypeKey
  */
 extern NSString *const kCRToastNotificationMinimumHeightKey;
@@ -154,6 +164,16 @@ extern NSString *const kCRToastNotificationMaximumHeightKey;
  The general preferred padding for the notification.
  */
 extern NSString *const kCRToastNotificationPreferredPaddingKey;
+
+/**
+ The notification's container offset from left and right.
+ */
+extern NSString *const kCRToastNotificationContainerVerticalOffsetKey;
+
+/**
+ The notification's container offset from top.
+ */
+extern NSString *const kCRToastNotificationContainerTopOffsetKey;
 
 /**
  The presentation type for the notification. Expects type `CRToastPresentationType`.
@@ -408,10 +428,14 @@ extern NSString *const kCRToastCaptureDefaultWindowKey;
 //Read Only Convinence Properties Providing Default Values or Values from Options
 
 @property (nonatomic, readonly) CRToastType notificationType;
+@property (nonatomic, assign) CGFloat cornerRadius;
+@property (nonatomic, assign) CGFloat maximumWidth;
 @property (nonatomic, assign) CGFloat minimumHeight;
 @property (nonatomic, assign) CGFloat preferredHeight;
 @property (nonatomic, assign) CGFloat maximumHeight;
 @property (nonatomic, assign) CGFloat preferredPadding;
+@property (nonatomic, assign) CGFloat containerVerticalOffset;
+@property (nonatomic, assign) CGFloat containerTopOffset;
 @property (nonatomic, readonly) CRToastPresentationType presentationType;
 @property (nonatomic, readonly) BOOL displayUnderStatusBar;
 @property (nonatomic, readonly) BOOL shouldKeepNavigationBarBorder;

@@ -177,10 +177,14 @@ NSArray * CRToastGenericRecognizersMake(id target, CRToastInteractionResponder *
 #pragma mark - Option Constant Definitions
 
 NSString *const kCRToastNotificationTypeKey                 = @"kCRToastNotificationTypeKey";
+NSString *const kCRToastNotificationCornerRadiusKey     = @"kCRToastNotificationCornerRadiusKey";
+NSString *const kCRToastNotificationMaximumWidthKey        = @"kCRToastNotificationMaximumWidthKey";
 NSString *const kCRToastNotificationMinimumHeightKey        = @"kCRToastNotificationMinimumHeightKey";
 NSString *const kCRToastNotificationPreferredHeightKey      = @"kCRToastNotificationPreferredHeightKey";
 NSString *const kCRToastNotificationMaximumHeightKey        = @"kCRToastNotificationMaximumHeightKey";
 NSString *const kCRToastNotificationPreferredPaddingKey     = @"kCRToastNotificationPreferredPaddingKey";
+NSString *const kCRToastNotificationContainerVerticalOffsetKey     = @"kCRToastNotificationContainerVerticalOffsetKey";
+NSString *const kCRToastNotificationContainerTopOffsetKey     = @"kCRToastNotificationContainerTopOffsetKey";
 NSString *const kCRToastNotificationPresentationTypeKey     = @"kCRToastNotificationPresentationTypeKey";
 
 NSString *const kCRToastUnderStatusBarKey                   = @"kCRToastUnderStatusBarKey";
@@ -237,10 +241,14 @@ NSString *const kCRToastCaptureDefaultWindowKey             = @"kCRToastCaptureD
 #pragma mark - Option Defaults
 
 static CRToastType                   kCRNotificationTypeDefault             = CRToastTypeStatusBar;
+static CGFloat                       kCRNotificationCornerRadiusDefault  = 0;
+static CGFloat                       kCRNotificationMaximumWidthDefault  = 1000;
 static CGFloat                       kCRNotificationMinimumHeightDefault  = 0;
 static CGFloat                       kCRNotificationPreferredHeightDefault  = 0;
 static CGFloat                       kCRNotificationMaximumHeightDefault  = 0;
 static CGFloat                       kCRNotificationPreferredPaddingDefault  = 0;
+static CGFloat                       kCRNotificationPreferredContainerVerticalOffsetDefault  = 0;
+static CGFloat                       kCRNotificationPreferredContainerTopOffsetDefault  = 0;
 static CRToastPresentationType       kCRNotificationPresentationTypeDefault = CRToastPresentationTypePush;
 static BOOL                          kCRDisplayUnderStatusBarDefault        = NO;
 static BOOL                          kCRToastKeepNavigationBarBorderDefault = YES;
@@ -319,10 +327,14 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
         kCRInteractionResponders = @[];
         
         kCRToastKeyClassMap = @{kCRToastNotificationTypeKey                 : NSStringFromClass([@(kCRNotificationTypeDefault) class]),
+                                kCRToastNotificationCornerRadiusKey      : NSStringFromClass([@(kCRNotificationCornerRadiusDefault) class]),
+                                 kCRToastNotificationMaximumWidthKey      : NSStringFromClass([@(kCRNotificationMaximumWidthDefault) class]),
                                 kCRToastNotificationMinimumHeightKey      : NSStringFromClass([@(kCRNotificationMinimumHeightDefault) class]),
                                 kCRToastNotificationPreferredHeightKey      : NSStringFromClass([@(kCRNotificationPreferredHeightDefault) class]),
                                 kCRToastNotificationMaximumHeightKey      : NSStringFromClass([@(kCRNotificationMaximumHeightDefault) class]),
                                 kCRToastNotificationPreferredPaddingKey      : NSStringFromClass([@(kCRNotificationPreferredPaddingDefault) class]),
+                                kCRToastNotificationContainerVerticalOffsetKey      : NSStringFromClass([@(kCRNotificationPreferredContainerVerticalOffsetDefault) class]),
+                                kCRToastNotificationContainerTopOffsetKey      : NSStringFromClass([@(kCRNotificationPreferredContainerTopOffsetDefault) class]),
                                 kCRToastNotificationPresentationTypeKey     : NSStringFromClass([@(kCRNotificationPresentationTypeDefault) class]),
                                 kCRToastUnderStatusBarKey                   : NSStringFromClass([@(kCRDisplayUnderStatusBarDefault) class]),
                                 kCRToastKeepNavigationBarBorderKey          : NSStringFromClass([@(kCRToastKeepNavigationBarBorderDefault) class]),
@@ -393,10 +405,14 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
 + (void)setDefaultOptions:(NSDictionary*)defaultOptions {
     //TODO Validate Types of Default Options
     if (defaultOptions[kCRToastNotificationTypeKey])                kCRNotificationTypeDefault              = [defaultOptions[kCRToastNotificationTypeKey] integerValue];
+    if (defaultOptions[kCRToastNotificationCornerRadiusKey])    kCRNotificationCornerRadiusDefault  = [defaultOptions[kCRToastNotificationCornerRadiusKey] floatValue];
+    if (defaultOptions[kCRToastNotificationMaximumWidthKey])    kCRNotificationMaximumWidthDefault  = [defaultOptions[kCRToastNotificationMaximumWidthKey] floatValue];
     if (defaultOptions[kCRToastNotificationPreferredHeightKey])     kCRNotificationPreferredHeightDefault   = [defaultOptions[kCRToastNotificationPreferredHeightKey] floatValue];
     if (defaultOptions[kCRToastNotificationMinimumHeightKey])       kCRNotificationMinimumHeightDefault     = [defaultOptions[kCRToastNotificationMinimumHeightKey] floatValue];
     if (defaultOptions[kCRToastNotificationMaximumHeightKey])       kCRNotificationMaximumHeightDefault     = [defaultOptions[kCRToastNotificationMaximumHeightKey] floatValue];
     if (defaultOptions[kCRToastNotificationPreferredPaddingKey])    kCRNotificationPreferredPaddingDefault  = [defaultOptions[kCRToastNotificationPreferredPaddingKey] floatValue];
+    if (defaultOptions[kCRToastNotificationContainerVerticalOffsetKey])    kCRNotificationPreferredContainerVerticalOffsetDefault  = [defaultOptions[kCRToastNotificationContainerVerticalOffsetKey] floatValue];
+    if (defaultOptions[kCRToastNotificationContainerTopOffsetKey])    kCRNotificationPreferredContainerTopOffsetDefault  = [defaultOptions[kCRToastNotificationContainerTopOffsetKey] floatValue];
     if (defaultOptions[kCRToastNotificationPresentationTypeKey])    kCRNotificationPresentationTypeDefault  = [defaultOptions[kCRToastNotificationPresentationTypeKey] integerValue];
     if (defaultOptions[kCRToastIdentifierKey])                      kCRToastIdentifier                      = defaultOptions[kCRToastIdentifierKey];
     
@@ -467,11 +483,15 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
 }
 
 - (CGRect)notificationViewAnimationFrame1 {
-    return CRNotificationViewFrame(self.notificationType, self.inAnimationDirection, self.preferredHeight);
+    CGPoint animationFrameOrigin = CRNotificationViewFrame(self.notificationType, self.inAnimationDirection, self.preferredHeight).origin;
+    CGSize notificationFrameSize = self.notificationView.frame.size;
+    return CGRectMake(animationFrameOrigin.x, animationFrameOrigin.y, notificationFrameSize.width, notificationFrameSize.height);
 }
 
 - (CGRect)notificationViewAnimationFrame2 {
-    return CRNotificationViewFrame(self.notificationType, self.outAnimationDirection, self.preferredHeight);
+    CGPoint animationFrameOrigin = CRNotificationViewFrame(self.notificationType, self.outAnimationDirection, self.preferredHeight).origin;
+    CGSize notificationFrameSize = self.notificationView.frame.size;
+    return CGRectMake(animationFrameOrigin.x, animationFrameOrigin.y, notificationFrameSize.width, notificationFrameSize.height);
 }
 
 - (UIView *)statusBarView {
@@ -549,6 +569,18 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
     kCRNotificationTypeDefault;
 }
 
+- (CGFloat)cornerRadius {
+    return _options[kCRToastNotificationCornerRadiusKey] ?
+    [_options[kCRToastNotificationCornerRadiusKey] floatValue] :
+    kCRNotificationCornerRadiusDefault;
+}
+
+- (CGFloat)maximumWidth {
+    return _options[kCRToastNotificationMaximumWidthKey] ?
+    [_options[kCRToastNotificationMaximumWidthKey] floatValue] :
+    kCRNotificationMaximumWidthDefault;
+}
+
 - (CGFloat)minimumHeight {
     return _options[kCRToastNotificationMinimumHeightKey] ?
     [_options[kCRToastNotificationMinimumHeightKey] floatValue] :
@@ -571,6 +603,18 @@ static NSDictionary *                kCRToastKeyClassMap                    = ni
     return _options[kCRToastNotificationPreferredPaddingKey] ?
     [_options[kCRToastNotificationPreferredPaddingKey] floatValue] :
     kCRNotificationPreferredPaddingDefault;
+}
+
+- (CGFloat)containerVerticalOffset {
+    return _options[kCRToastNotificationContainerVerticalOffsetKey] ?
+    [_options[kCRToastNotificationContainerVerticalOffsetKey] floatValue] :
+    kCRNotificationPreferredContainerVerticalOffsetDefault;
+}
+
+- (CGFloat)containerTopOffset {
+    return _options[kCRToastNotificationContainerTopOffsetKey] ?
+    [_options[kCRToastNotificationContainerTopOffsetKey] floatValue] :
+    kCRNotificationPreferredContainerTopOffsetDefault;
 }
 
 - (CRToastPresentationType)presentationType {
