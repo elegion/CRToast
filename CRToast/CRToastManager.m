@@ -273,7 +273,12 @@ CRToastAnimationStepBlock CRToastOutwardAnimationsSetupBlock(CRToastManager *wea
     }
     
     CGRect containerFrame = CRGetNotificationContainerFrame(CRGetDeviceOrientation(), notificationSize);
-    CGFloat topOffset = MAX(notification.containerTopOffset, CGRectGetMinY(_notificationWindow.safeAreaLayoutGuide.layoutFrame) - 15 + notification.containerTopOffset);
+    CGFloat topOffset;
+    if (@available(iOS 11, *)) {
+        topOffset = MAX(notification.containerTopOffset, CGRectGetMinY(_notificationWindow.safeAreaLayoutGuide.layoutFrame) - 15 + notification.containerTopOffset);
+    } else {
+        topOffset = notification.containerTopOffset;
+    }
     
     containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, notification.maximumWidth, topOffset, notification.containerVerticalOffset);
     

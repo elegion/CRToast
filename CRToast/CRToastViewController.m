@@ -51,7 +51,12 @@
     if (self.toastView) {
         CGSize notificationSize = CRNotificationViewSizeForOrientation(self.notification.notificationType, self.notification.minimumHeight, toInterfaceOrientation);
         CGRect containerFrame = CGRectMake(0, 0, notificationSize.width, notificationSize.height);
-        CGFloat topOffset = MAX(self.notification.containerTopOffset, CGRectGetMinY(self.view.superview.safeAreaLayoutGuide.layoutFrame) - 15 + self.notification.containerTopOffset);
+        CGFloat topOffset;
+        if (@available(iOS 11, *)) {
+            topOffset = MAX(self.notification.containerTopOffset, CGRectGetMinY(self.view.superview.safeAreaLayoutGuide.layoutFrame) - 15 + self.notification.containerTopOffset);
+        } else {
+            topOffset = self.notification.containerTopOffset;
+        }
         
         containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, self.notification.maximumWidth, topOffset, self.notification.containerVerticalOffset);
 
