@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		249C8A6D22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 249C8A6B22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.h */; };
+		249C8A6E22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 249C8A6C22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.m */; };
 		464D04B11BD21AC300E0E90A /* CRToast.h in Headers */ = {isa = PBXBuildFile; fileRef = 464D04B01BD21AC300E0E90A /* CRToast.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		464D04BF1BD21CB400E0E90A /* CRToastConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EDF1B9E21FE00BCA1C3 /* CRToastConfig.m */; settings = {ASSET_TAGS = (); }; };
-		464D04C01BD21CB800E0E90A /* CRToastManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE21B9E21FE00BCA1C3 /* CRToastManager.m */; settings = {ASSET_TAGS = (); }; };
-		464D04C11BD21CBB00E0E90A /* CRToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE41B9E21FE00BCA1C3 /* CRToastView.m */; settings = {ASSET_TAGS = (); }; };
-		464D04C21BD21CBD00E0E90A /* CRToastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE61B9E21FE00BCA1C3 /* CRToastViewController.m */; settings = {ASSET_TAGS = (); }; };
-		464D04C31BD21CC000E0E90A /* CRToastWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE81B9E21FE00BCA1C3 /* CRToastWindow.m */; settings = {ASSET_TAGS = (); }; };
-		464D04CD1BD2218900E0E90A /* CRToast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65986EC11B9E21DC00BCA1C3 /* CRToast.framework */; settings = {ASSET_TAGS = (); }; };
-		464D04D61BD221A400E0E90A /* CRToastManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464D04D31BD221A400E0E90A /* CRToastManagerTests.m */; settings = {ASSET_TAGS = (); }; };
-		464D04D81BD221A400E0E90A /* CRToastViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464D04D51BD221A400E0E90A /* CRToastViewTests.m */; settings = {ASSET_TAGS = (); }; };
+		464D04BF1BD21CB400E0E90A /* CRToastConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EDF1B9E21FE00BCA1C3 /* CRToastConfig.m */; };
+		464D04C01BD21CB800E0E90A /* CRToastManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE21B9E21FE00BCA1C3 /* CRToastManager.m */; };
+		464D04C11BD21CBB00E0E90A /* CRToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE41B9E21FE00BCA1C3 /* CRToastView.m */; };
+		464D04C21BD21CBD00E0E90A /* CRToastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE61B9E21FE00BCA1C3 /* CRToastViewController.m */; };
+		464D04C31BD21CC000E0E90A /* CRToastWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EE81B9E21FE00BCA1C3 /* CRToastWindow.m */; };
+		464D04CD1BD2218900E0E90A /* CRToast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65986EC11B9E21DC00BCA1C3 /* CRToast.framework */; };
+		464D04D61BD221A400E0E90A /* CRToastManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464D04D31BD221A400E0E90A /* CRToastManagerTests.m */; };
+		464D04D81BD221A400E0E90A /* CRToastViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 464D04D51BD221A400E0E90A /* CRToastViewTests.m */; };
 		65986EE91B9E21FE00BCA1C3 /* CRToastConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 65986EDE1B9E21FE00BCA1C3 /* CRToastConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65986EEA1B9E21FE00BCA1C3 /* CRToastConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 65986EDF1B9E21FE00BCA1C3 /* CRToastConfig.m */; };
 		65986EEB1B9E21FE00BCA1C3 /* CRToastLayoutHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 65986EE01B9E21FE00BCA1C3 /* CRToastLayoutHelpers.h */; };
@@ -52,6 +54,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		249C8A6B22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapWithoutSwipeGestureRecognizer.h; sourceTree = "<group>"; };
+		249C8A6C22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapWithoutSwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		464D04AE1BD2190900E0E90A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CRToast/Info.plist; sourceTree = SOURCE_ROOT; };
 		464D04B01BD21AC300E0E90A /* CRToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CRToast.h; path = CRToast/CRToast.h; sourceTree = SOURCE_ROOT; };
 		464D04B61BD21BE600E0E90A /* libCRToast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCRToast.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +170,8 @@
 				65986EE61B9E21FE00BCA1C3 /* CRToastViewController.m */,
 				65986EE71B9E21FE00BCA1C3 /* CRToastWindow.h */,
 				65986EE81B9E21FE00BCA1C3 /* CRToastWindow.m */,
+				249C8A6B22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.h */,
+				249C8A6C22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.m */,
 				65986EC41B9E21DC00BCA1C3 /* Supporting Files */,
 			);
 			path = CRToast;
@@ -178,6 +184,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				249C8A6D22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.h in Headers */,
 				65986EEE1B9E21FE00BCA1C3 /* CRToastView.h in Headers */,
 				65986EEB1B9E21FE00BCA1C3 /* CRToastLayoutHelpers.h in Headers */,
 				65986EEC1B9E21FE00BCA1C3 /* CRToastManager.h in Headers */,
@@ -332,6 +339,7 @@
 				65986EF31B9E21FE00BCA1C3 /* CRToastWindow.m in Sources */,
 				65986EEA1B9E21FE00BCA1C3 /* CRToastConfig.m in Sources */,
 				65986EEF1B9E21FE00BCA1C3 /* CRToastView.m in Sources */,
+				249C8A6E22F86CE5001CAAF0 /* TapWithoutSwipeGestureRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

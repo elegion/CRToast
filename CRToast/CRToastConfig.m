@@ -8,6 +8,7 @@
 #import "CRToastConfig.h"
 #import "CRToastView.h"
 #import "CRToastLayoutHelpers.h"
+#import "TapWithoutSwipeGestureRecognizer.h"
 
 NSString *NSStringFromCRToastInteractionType(CRToastInteractionType interactionType) {
     switch (interactionType) {
@@ -46,6 +47,16 @@ typedef void (^CRToastInteractionResponderBlock) (CRToastInteractionType interac
 @end
 
 @implementation CRToastSwipeGestureRecognizer
+
+@end
+
+@interface CRToastTapWithoutSwipeGestureRecognizer : TapWithoutSwipeGestureRecognizer
+@property (nonatomic, assign) BOOL automaticallyDismiss;
+@property (nonatomic, assign) CRToastInteractionType interactionType;
+@property (nonatomic, copy) CRToastInteractionResponderBlock block;
+@end
+
+@implementation CRToastTapWithoutSwipeGestureRecognizer
 
 @end
 
@@ -99,13 +110,21 @@ UIGestureRecognizer * CRToastSwipeGestureRecognizerMake(id target, SEL action, C
 }
 
 UIGestureRecognizer * CRToastTapGestureRecognizerMake(id target, SEL action, CRToastInteractionType interactionType, CRToastInteractionResponder *interactionResponder) {
-    CRToastTapGestureRecognizer *tapGestureRecognizer = [[CRToastTapGestureRecognizer alloc] initWithTarget:target action:action];
-    tapGestureRecognizer.numberOfTouchesRequired = (interactionType & (CRToastInteractionTypeTapOnce | CRToastInteractionTypeTapTwice)) ? 1 : 2;
-    tapGestureRecognizer.numberOfTapsRequired = (interactionType & (CRToastInteractionTypeTapOnce | CRToastInteractionTypeTwoFingerTapOnce)) ? 1 : 2;
-    tapGestureRecognizer.automaticallyDismiss = interactionResponder.automaticallyDismiss;
-    tapGestureRecognizer.interactionType = interactionType;
-    tapGestureRecognizer.block = interactionResponder.block;
-    return tapGestureRecognizer;
+    if (interactionType == CRToastInteractionTypeTapOnce) {
+        CRToastTapWithoutSwipeGestureRecognizer *tapGestureRecognizer = [[CRToastTapWithoutSwipeGestureRecognizer alloc] initWithTarget:target action:action];
+        tapGestureRecognizer.automaticallyDismiss = interactionResponder.automaticallyDismiss;
+        tapGestureRecognizer.interactionType = interactionType;
+        tapGestureRecognizer.block = interactionResponder.block;
+        return tapGestureRecognizer;
+    } else {
+        CRToastTapGestureRecognizer *tapGestureRecognizer = [[CRToastTapGestureRecognizer alloc] initWithTarget:target action:action];
+        tapGestureRecognizer.numberOfTouchesRequired = (interactionType & (CRToastInteractionTypeTapOnce | CRToastInteractionTypeTapTwice)) ? 1 : 2;
+        tapGestureRecognizer.numberOfTapsRequired = (interactionType & (CRToastInteractionTypeTapOnce | CRToastInteractionTypeTwoFingerTapOnce)) ? 1 : 2;
+        tapGestureRecognizer.automaticallyDismiss = interactionResponder.automaticallyDismiss;
+        tapGestureRecognizer.interactionType = interactionType;
+        tapGestureRecognizer.block = interactionResponder.block;
+        return tapGestureRecognizer;
+    }
 }
 
 UIGestureRecognizer * CRToastGestureRecognizerMake(id target, CRToastInteractionResponder *interactionResponder) {
