@@ -19,7 +19,7 @@
 
 -(id)initWithTarget:(id)target action:(SEL)action{
     if ((self = [super initWithTarget:target action:action])){
-        
+        self.firstTap = CGPointMake(-1, -1);
     }
     return self;
 }
@@ -27,6 +27,7 @@
 - (void)reset
 {
     [super reset];
+    self.firstTap = CGPointMake(-1, -1);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -44,6 +45,7 @@
 {
     [super touchesMoved:touches withEvent:event];
 }
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
@@ -51,17 +53,13 @@
     CGPoint currentTap = [touches.anyObject locationInView:self.view.superview];
    
     CGFloat maxDistanceForSuccessTap = 10;
-    if ([self distance:currentTap andPoint:self.firstTap] > maxDistanceForSuccessTap) {
-        self.state = UIGestureRecognizerStateFailed;
-    } else {
+    BOOL maxDistanceValidation = [self distance:currentTap andPoint:self.firstTap] < maxDistanceForSuccessTap;
+    BOOL isCurrentTapCorrect = (currentTap.x >=0 && currentTap.y >= 0);
+    if (maxDistanceValidation && isCurrentTapCorrect) {
         self.state = UIGestureRecognizerStateRecognized;
+    } else {
+        self.state = UIGestureRecognizerStateFailed;
     }
-    [self reset];
-}
-
--(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    self.state = UIGestureRecognizerStateCancelled;
-    [self reset];
 }
 
 -(CGFloat)distance:(CGPoint) p1 andPoint:(CGPoint)p2 {
