@@ -166,6 +166,11 @@ extern NSString *const kCRToastNotificationMaximumHeightKey;
 extern NSString *const kCRToastNotificationPreferredPaddingKey;
 
 /**
+ The left offset for the notification;
+ */
+extern NSString *const kCRToastNotificationLeftOffset;
+
+/**
  The notification's container offset from left and right.
  */
 extern NSString *const kCRToastNotificationContainerVerticalOffsetKey;
@@ -434,6 +439,7 @@ extern NSString *const kCRToastCaptureDefaultWindowKey;
 @property (nonatomic, assign) CGFloat preferredHeight;
 @property (nonatomic, assign) CGFloat maximumHeight;
 @property (nonatomic, assign) CGFloat preferredPadding;
+@property (nonatomic, assign) CGFloat leftOffset;
 @property (nonatomic, assign) CGFloat containerVerticalOffset;
 @property (nonatomic, assign) CGFloat containerTopOffset;
 @property (nonatomic, readonly) CRToastPresentationType presentationType;

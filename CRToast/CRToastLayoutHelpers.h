@@ -204,13 +204,22 @@ static CGRect CRGetNotificationContainerFrame(UIInterfaceOrientation statusBarOr
 }
 
 /// Get the adjusted frame for the notification container based on options.
-static CGRect CRNotificationContainerAdjustedFrame(CGRect initialFrame, CGFloat maximumWidth, CGFloat topOffset, CGFloat containerVerticalOffset) {
+static CGRect CRNotificationContainerAdjustedFrame(CGRect initialFrame, CGFloat maximumWidth, CGFloat topOffset, CGFloat containerVerticalOffset, CGFloat containerLeftOffset) {
+    CGRect initialFrameWithOffset;
+    if (initialFrame.size.width <= containerLeftOffset) {
+        initialFrameWithOffset = initialFrame;
+    } else {
+        initialFrameWithOffset = CGRectMake(initialFrame.origin.x + containerLeftOffset,
+                                            initialFrame.origin.y,
+                                            initialFrame.size.width - containerLeftOffset,
+                                            initialFrame.size.height);
+    }
     CGRect areaOne, areaTwo;
-    if (initialFrame.size.width > maximumWidth) {
-        CGRectDivide(initialFrame, &areaTwo, &areaOne, maximumWidth, CGRectMinXEdge);
+    if (initialFrameWithOffset.size.width > maximumWidth) {
+        CGRectDivide(initialFrameWithOffset, &areaTwo, &areaOne, maximumWidth, CGRectMinXEdge);
         areaTwo = CGRectOffset(areaTwo, areaOne.size.width / 2, topOffset);
     } else {
-        CGRect frame = CGRectOffset(initialFrame, containerVerticalOffset, topOffset);
+        CGRect frame = CGRectOffset(initialFrameWithOffset, containerVerticalOffset, topOffset);
         CGRectDivide(frame, &areaOne, &areaTwo, containerVerticalOffset * 2, CGRectMaxXEdge);
     }
     
