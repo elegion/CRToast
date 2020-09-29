@@ -280,7 +280,7 @@ CRToastAnimationStepBlock CRToastOutwardAnimationsSetupBlock(CRToastManager *wea
         topOffset = notification.containerTopOffset;
     }
     
-    containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, notification.maximumWidth, topOffset, notification.containerVerticalOffset);
+    containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, notification.maximumWidth, topOffset, notification.containerVerticalOffset, notification.leftOffset);
     
     CRToastViewController *rootViewController = (CRToastViewController*)_notificationWindow.rootViewController;
     rootViewController.statusBarStyle = notification.statusBarStyle;

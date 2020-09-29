@@ -58,7 +58,7 @@
             topOffset = self.notification.containerTopOffset;
         }
         
-        containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, self.notification.maximumWidth, topOffset, self.notification.containerVerticalOffset);
+        containerFrame = CRNotificationContainerAdjustedFrame(containerFrame, self.notification.maximumWidth, topOffset, self.notification.containerVerticalOffset, self.notification.leftOffset);
 
         self.view.frame = containerFrame;
         self.toastView.frame = self.view.bounds;
